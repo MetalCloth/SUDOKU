@@ -106,3 +106,6 @@
     display: flex;
     flex-wrap: wrap;
 }
+.hide{
+    visibility: hidden;
+}
