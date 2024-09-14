@@ -3,6 +3,7 @@ var tiles=null;
 window.onload=function(){
     setgame();
 }
+const win=0;
 var lastSelected=null;
 var board = [
     "--74916-5",
@@ -26,6 +27,9 @@ var solution = [
     "934176852",
     "675832941",
     "812945763"
+]
+var count=[
+    4,3,3,4,3,5,5,4,4
 ]
 
 function setgame(){
@@ -97,7 +101,6 @@ function selectontiles(){
             this.innerText=numselect.id;
             hightlight();
             correctness(this);
-
         }
     }
     if(!numselect){
@@ -105,8 +108,7 @@ function selectontiles(){
         let cum=this.id.split("-");
         let r=parseInt(cum[0]);
         let c=parseInt(cum[1]);
-        console.log(r,c);
-        console.log(" ");
+        
         for(let i=0;i<9;i++){
             for(let j=0;j<9;j++){
             let x=document.getElementById(`${i.toString()}-${j.toString()}`);
@@ -128,11 +130,22 @@ function selectontiles(){
 }
 function correctness(m){
     //numselect.id;
-    console.log(m);
+    
     let cum=m.id.split("-");
     let r=parseInt(cum[0]);
     let c=parseInt(cum[1]);
     if(m.innerText==solution[r][c]){
+        count[m.innerText-'1']++;
+        if(count[m.innerText-'1']==9){
+            let element=document.getElementById(`${m.innerText}`);
+            element.classList.add("hide");
+            win++;
+            if(win==9){
+                displaywin();
+            }
+            numselect=null;
+        }
+        console.log(count);
         m.style.color="#3457D5";
         m.backgroundColor="white";
 
@@ -140,11 +153,20 @@ function correctness(m){
     else{
         m.style.color="#FF033E";
         m.backgroundColor="white";
-        console.log(m.innerText);
+    
+        removeNumberAfterDelay(m);
     }
+    
 }
-
-//numselect hai neeche wala number jo pkda 
+function removeNumberAfterDelay(m) {
+     setTimeout(() => {
+        m.textContent = ""; 
+        dehigh();
+    }, 1300);
+}
+function displaywin(){
+    YOU
+}
 function hightlight(){
     for(let i=0;i<9;i++){
         for(let j=0;j<9;j++){
